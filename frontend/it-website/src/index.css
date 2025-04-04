@@ -1,0 +1,863 @@
+body {
+  background-color: #f4f7fa;
+  font-family: 'Arial', sans-serif;
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+body {
+  font-family: 'Arial', sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.light {
+  background-color: #f4f7fa;
+  color: #333;
+}
+
+body.dark {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s, color 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+body.dark .card {
+  background-color: #2c2c2c;
+  color: #e0e0e0;
+}
+
+body.dark .card:hover {
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+}
+
+.btn-primary {
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+body.dark .btn-primary {
+  background-color: #007bff;
+}
+
+body.dark .btn-outline-primary {
+  color: #00c4ff;
+  border-color: #00c4ff;
+}
+
+body.dark .btn-outline-primary:hover {
+  background-color: #00c4ff;
+  color: #1a1a1a;
+}
+
+body.dark .text-muted {
+  color: #a0a0a0 !important;
+}
+
+body.dark .navbar-dark .nav-link {
+  color: #e0e0e0;
+}
+
+body.dark .navbar-dark .nav-link:hover {
+  color: #00c4ff;
+}
+body {
+  font-family: 'Arial', sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.light {
+  background-color: #f4f7fa;
+  color: #333;
+}
+
+body.dark {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+}
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s, color 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+body.dark .card {
+  background-color: #2c2c2c;
+  color: #e0e0e0;
+}
+
+body.dark .card:hover {
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+}
+
+.btn-primary {
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+body.dark .btn-primary {
+  background-color: #007bff;
+}
+
+body.dark .btn-outline-primary {
+  color: #00c4ff;
+  border-color: #00c4ff;
+}
+
+body.dark .btn-outline-primary:hover {
+  background-color: #00c4ff;
+  color: #1a1a1a;
+}
+
+body.dark .text-muted {
+  color: #a0a0a0 !important;
+}
+
+body.dark .navbar-dark .nav-link {
+  color: #e0e0e0;
+}
+
+body.dark .navbar-dark .nav-link:hover {
+  color: #00c4ff;
+}
+
+footer {
+  background-color: #343a40;
+}
+
+body.dark footer {
+  background-color: #121212;
+}
+
+body.dark footer a {
+  color: #00c4ff;
+}
+
+body.dark .list-group-item {
+  background-color: #2c2c2c;
+  color: #e0e0e0;
+}
+body {
+  font-family: 'Arial', sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.light {
+  background-color: #f4f7fa;
+  color: #333;
+}
+
+body.dark {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+}
+
+/* สไตล์ปุ่มทั่วไป */
+.btn {
+  padding: 10px 20px;
+  border-radius: 25px; /* ขอบโค้งมน */
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn:hover::after {
+  width: 200%;
+  height: 200%;
+}
+
+/* ปุ่ม Primary */
+.btn-primary {
+  background: linear-gradient(90deg, #007bff, #00c4ff);
+  border: none;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(90deg, #0056b3, #0096cc);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+/* ปุ่ม Outline Primary */
+.btn-outline-primary {
+  border: 2px solid #007bff;
+  color: #007bff;
+  background: transparent;
+}
+
+.btn-outline-primary:hover {
+  background: #007bff;
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+}
+
+/* ปุ่ม Secondary */
+.btn-outline-secondary {
+  border: 2px solid #6c757d;
+  color: #6c757d;
+  background: transparent;
+}
+
+.btn-outline-secondary:hover {
+  background: #6c757d;
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(108, 117, 125, 0.3);
+}
+
+/* ปุ่มใน Navbar */
+.btn-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  color: #00c4ff;
+  transform: scale(1.05);
+}
+
+/* ปรับให้เข้ากับธีมมืด */
+body.dark .btn-primary {
+  background: linear-gradient(90deg, #00c4ff, #007bff);
+}
+
+body.dark .btn-primary:hover {
+  background: linear-gradient(90deg, #0096cc, #0056b3);
+  box-shadow: 0 6px 20px rgba(0, 196, 255, 0.4);
+}
+
+body.dark .btn-outline-primary {
+  border-color: #00c4ff;
+  color: #00c4ff;
+}
+
+body.dark .btn-outline-primary:hover {
+  background: #00c4ff;
+  color: #1a1a1a;
+  box-shadow: 0 6px 20px rgba(0, 196, 255, 0.3);
+}
+
+body.dark .btn-outline-secondary {
+  border-color: #a0a0a0;
+  color: #a0a0a0;
+}
+
+body.dark .btn-outline-secondary:hover {
+  background: #a0a0a0;
+  color: #1a1a1a;
+  box-shadow: 0 6px 20px rgba(160, 160, 160, 0.3);
+}
+
+body.dark .btn-link {
+  color: #e0e0e0;
+}
+
+body.dark .btn-link:hover {
+  color: #00c4ff;
+}
+
+/* ปรับแต่งอื่นๆ */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s, color 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+body.dark .card {
+  background-color: #2c2c2c;
+  color: #e0e0e0;
+}
+
+body.dark .card:hover {
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+}
+
+body.dark .text-muted {
+  color: #a0a0a0 !important;
+}
+
+body.dark .navbar-dark .nav-link {
+  color: #e0e0e0;
+}
+
+body.dark .navbar-dark .nav-link:hover {
+  color: #00c4ff;
+}
+
+footer {
+  background-color: #343a40;
+}
+
+body.dark footer {
+  background-color: #121212;
+}
+
+body.dark footer a {
+  color: #00c4ff;
+}
+
+body.dark .list-group-item {
+  background-color: #2c2c2c;
+  color: #e0e0e0;
+}
+body {
+  font-family: 'Kanit', 'Poppins', sans-serif; /* ใช้ Kanit เป็นหลัก, Poppins เป็นสำรอง */
+  transition: background-color 0.3s, color 0.3s;
+  line-height: 1.6; /* เพิ่มระยะห่างบรรทัด */
+}
+
+body.light {
+  background-color: #f4f7fa;
+  color: #333;
+}
+
+body.dark {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+}
+
+/* หัวข้อ */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 700; /* ตัวหนา */
+  letter-spacing: 0.5px; /* ระยะห่างตัวอักษร */
+}
+
+h1.display-4 {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+/* ข้อความทั่วไป */
+p, .card-text, .form-label, .nav-link {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 400; /* น้ำหนักปกติ */
+}
+
+.text-muted {
+  font-weight: 300; /* น้ำหนักบาง */
+}
+
+/* ปุ่ม */
+.btn {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 500; /* น้ำหนักปานกลาง */
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease, height 0.6s ease;
+}
+
+.btn:hover::after {
+  width: 200%;
+  height: 200%;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #007bff, #00c4ff);
+  border: none;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(90deg, #0056b3, #0096cc);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+.btn-outline-primary {
+  border: 2px solid #007bff;
+  color: #007bff;
+  background: transparent;
+}
+
+.btn-outline-primary:hover {
+  background: #007bff;
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+}
+
+.btn-outline-secondary {
+  border: 2px solid #6c757d;
+  color: #6c757d;
+  background: transparent;
+}
+
+.btn-outline-secondary:hover {
+  background: #6c757d;
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(108, 117, 125, 0.3);
+}
+
+.btn-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.btn-link:hover {
+  color: #00c4ff;
+  transform: scale(1.05);
+}
+
+/* ปรับให้เข้ากับธีมมืด */
+body.dark .btn-primary {
+  background: linear-gradient(90deg, #00c4ff, #007bff);
+}
+
+body.dark .btn-primary:hover {
+  background: linear-gradient(90deg, #0096cc, #0056b3);
+  box-shadow: 0 6px 20px rgba(0, 196, 255, 0.4);
+}
+
+body.dark .btn-outline-primary {
+  border-color: #00c4ff;
+  color: #00c4ff;
+}
+
+body.dark .btn-outline-primary:hover {
+  background: #00c4ff;
+  color: #1a1a1a;
+  box-shadow: 0 6px 20px rgba(0, 196, 255, 0.3);
+}
+
+body.dark .btn-outline-secondary {
+  border-color: #a0a0a0;
+  color: #a0a0a0;
+}
+
+body.dark .btn-outline-secondary:hover {
+  background: #a0a0a0;
+  color: #1a1a1a;
+  box-shadow: 0 6px 20px rgba(160, 160, 160, 0.3);
+}
+
+body.dark .btn-link {
+  color: #e0e0e0;
+}
+
+body.dark .btn-link:hover {
+  color: #00c4ff;
+}
+
+/* ปรับแต่งอื่นๆ */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s, color 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+body.dark .card {
+  background-color: #2c2c2c;
+  color: #e0e0e0;
+}
+
+body.dark .card:hover {
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+}
+
+body.dark .text-muted {
+  color: #a0a0a0 !important;
+}
+
+body.dark .navbar-dark .nav-link {
+  color: #e0e0e0;
+}
+
+body.dark .navbar-dark .nav-link:hover {
+  color: #00c4ff;
+}
+
+footer {
+  background-color: #343a40;
+}
+
+body.dark footer {
+  background-color: #121212;
+}
+
+body.dark footer a {
+  color: #00c4ff;
+}
+
+body.dark .list-group-item {
+  background-color: #2c2c2c;
+  color: #e0e0e0;
+}
+
+/* ปรับฟอนต์ในฟอร์ม */
+.form-label {
+  font-weight: 500;
+}
+
+.form-control {
+  font-family: 'Kanit', sans-serif;
+  font-weight: 400;
+} 
+/* ... โค้ด ... */
+
+/* ช่องค้นหา */
+.search-input {
+  padding: 12px 40px 12px 20px;
+  border-radius: 25px;
+  border: 2px solid #007bff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  font-size: 1.1rem;
+}
+
+.search-input:focus {
+  border-color: #00c4ff;
+  box-shadow: 0 6px 20px rgba(0, 123, 255, 0.3);
+  outline: none;
+}
+
+.search-icon {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: #007bff;
+}
+
+body.dark .search-input {
+  border-color: #00c4ff;
+  background-color: #2c2c2c;
+  color: #e0e0e0;
+}
+
+body.dark .search-input:focus {
+  border-color: #007bff;
+  box-shadow: 0 6px 20px rgba(0, 196, 255, 0.3);
+}
+
+body.dark .search-icon {
+  color: #00c4ff;
+}
+
+/* ... โค้ด ... */
+/* ... โค้ด原有 ... */
+
+.card-clickable {
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-clickable:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-star {
+  font-size: 1.5rem;
+  padding: 5px 10px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-star.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.btn-star.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-star.btn-outline-secondary {
+  border-color: #6c757d;
+  color: #6c757d;
+}
+
+.btn-star.btn-outline-danger {
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+body.dark .btn-star.btn-secondary {
+  background-color: #a0a0a0;
+}
+
+body.dark .btn-star.btn-outline-secondary {
+  border-color: #a0a0a0;
+  color: #a0a0a0;
+}
+
+/* ... โค้ด ... */
+
+/* ... โค้ด原有 ... */
+
+/* ลบเส้นใต้สำหรับปุ่มใน Navbar */
+.btn-link.no-underline {
+  text-decoration: none !important; /* ลบเส้นใต้ */
+}
+
+/* ลบ outline เมื่อ focus หรือ click */
+button:focus,
+.btn:focus,
+.btn-link:focus,
+input:focus,
+a:focus {
+  outline: none !important; /* ลบ outline */
+  box-shadow: none !important; /* ลบ shadow ที่อาจเกิดจาก Bootstrap */
+}
+
+/* ป้องกันการเปลี่ยนสีเมื่อคลิก (ถ้ามี) */
+.btn-link:active,
+.btn-link:hover {
+  text-decoration: none !important;
+}
+
+/* รองรับธีมมืด */
+body.dark .btn-link.text-warning {
+  color: #ffca2c; /* สีเหลืองสำหรับ "ออกจากระบบ" */
+}
+
+body.dark .btn-link.text-light {
+  color: #e0e0e0; /* สีขาวสำหรับ "มืด/สว่าง" */
+}
+
+body.dark .btn-link:hover,
+body.dark .btn-link:active {
+  color: #00c4ff; /* สีฟ้าเมื่อ hover */
+  text-decoration: none !important;
+}
+
+/* ... โค้ด原有 ... */
+/* สไตล์สำหรับ Navbar */
+/* สไตล์พื้นฐานสำหรับ Navbar */
+.navbar.navbar-expand-lg {
+  position: sticky !important;
+  top: 0;
+  z-index: 1000;
+  background: linear-gradient(135deg, #3f91e3, #495057);
+  padding: 1rem 1.5rem;
+  height: 70px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* เมื่อเลื่อนลงมา Navbar เล็กลงทั้งแถบ */
+.navbar.navbar-expand-lg.small {
+  padding: 0.5rem 1rem;
+  height: 50px;
+  background: linear-gradient(135deg, #238df8, #000000);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* สไตล์ตัวอักษรใน Navbar */
+.navbar.navbar-expand-lg .nav-link {
+  color: #e0e0e0; /* สีเทาอ่อนสวยงาม */
+  font-weight: 500; /* เพิ่มน้ำหนักตัวอักษร */
+  transition: color 0.3s ease, transform 0.2s ease; /* ลูกเล่นเปลี่ยนสีและขยับ */
+}
+
+.navbar.navbar-expand-lg .nav-link:hover {
+  color: #00c4ff; /* สีฟ้าเมื่อ hover */
+  transform: translateY(-2px); /* ขยับขึ้นเล็กน้อย */
+}
+
+/* ปรับ navbar-brand */
+.navbar.navbar-expand-lg .navbar-brand {
+  color: #ffffff; /* สีขาวสำหรับโลโก้ */
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+.navbar.navbar-expand-lg .navbar-brand:hover {
+  color: #0400ff; /* สีทองเมื่อ hover */
+}
+
+/* ปรับปุ่มใน Navbar */
+.navbar.navbar-expand-lg .btn-link {
+  color: #e0e0e0; /* สีเทาอ่อน */
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.navbar.navbar-expand-lg .btn-link:hover {
+  color: #ff2ce6; /* สีเหลืองเมื่อ hover */
+  transform: translateY(-2px);
+}
+
+/* เมื่อ Navbar เล็กลง */
+.navbar.navbar-expand-lg.small .nav-link {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.9rem;
+  color: #f0f0f0; /* สีขาวนวลเมื่อเล็กลง */
+}
+
+.navbar.navbar-expand-lg.small .nav-link:hover {
+  color: #00e676; /* สีเขียวสดเมื่อ hover */
+}
+
+.navbar.navbar-expand-lg.small .navbar-brand {
+  font-size: 1rem;
+  color: #f0f0f0;
+}
+
+.navbar.navbar-expand-lg.small .navbar-brand:hover {
+  color: #002fff; /* สีเหลืองสดเมื่อ hover */
+}
+
+.navbar.navbar-expand-lg.small .btn-link {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.9rem;
+  color: #f0f0f0;
+}
+
+.navbar.navbar-expand-lg.small .btn-link:hover {
+  color: #ff5722; /* สีส้มเมื่อ hover */
+}
+
+/* ลบเส้นใต้สำหรับปุ่มใน Navbar */
+.btn-link.no-underline {
+  text-decoration: none !important;
+}
+
+/* ลบ outline เมื่อ focus หรือ click */
+button:focus,
+.btn:focus,
+.btn-link:focus,
+input:focus,
+a:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ป้องกันการเปลี่ยนสีเมื่อคลิก */
+.btn-link:active,
+.btn-link:hover {
+  text-decoration: none !important;
+}
+
+/* รองรับธีมมืด */
+body.dark .navbar.navbar-expand-lg {
+  background: linear-gradient(135deg, #1a1e23, #2c3035);
+}
+
+body.dark .navbar.navbar-expand-lg.small {
+  background: linear-gradient(135deg, #0f1216, #1a1e23);
+}
+
+body.dark .navbar.navbar-expand-lg .nav-link {
+  color: #d0d0d0; /* สีเทาอ่อนในธีมมืด */
+}
+
+body.dark .navbar.navbar-expand-lg .nav-link:hover {
+  color: #40c4ff; /* สีฟ้าอ่อนในธีมมืด */
+}
+
+body.dark .navbar.navbar-expand-lg .navbar-brand {
+  color: #ffffff;
+}
+
+body.dark .navbar.navbar-expand-lg .navbar-brand:hover {
+  color: #ffd740;
+}
+
+body.dark .navbar.navbar-expand-lg.small .nav-link {
+  color: #e0e0e0;
+}
+
+body.dark .navbar.navbar-expand-lg.small .nav-link:hover {
+  color: #00e676;
+}
+
+body.dark .btn-link.text-warning {
+  color: #ffca2c;
+}
+
+body.dark .btn-link.text-light {
+  color: #e0e0e0;
+}
+
+body.dark .btn-link:hover,
+body.dark .btn-link:active {
+  color: #00c4ff;
+}
