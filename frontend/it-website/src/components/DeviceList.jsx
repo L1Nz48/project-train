@@ -13,7 +13,9 @@ function DeviceList({ devices: initialDevices }) {
   const isLoggedIn = !!localStorage.getItem('token');
   const navigate = useNavigate(); // เพิ่ม navigate
 
+  console.log('VITE_API_URL from env:', import.meta.env.VITE_API_URL);
   const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  console.log('Final API_URL:', API_URL);
 
   useEffect(() => {
     setDevices(initialDevices);
