@@ -13,6 +13,8 @@ function DeviceList({ devices: initialDevices }) {
   const isLoggedIn = !!localStorage.getItem('token');
   const navigate = useNavigate(); // เพิ่ม navigate
 
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
   useEffect(() => {
     setDevices(initialDevices);
     if (isLoggedIn) {
@@ -23,7 +25,7 @@ function DeviceList({ devices: initialDevices }) {
   const fetchFavorites = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:5000/favorites', {
+      const res = await fetch('${API_URL}/favorites', {
         headers: { 'Authorization': `Bearer ${token}` },
       });
       const data = await res.json();
@@ -40,8 +42,8 @@ function DeviceList({ devices: initialDevices }) {
     setLoading(true);
     try {
       const url = category === 'all' 
-        ? 'http://localhost:5000/devices' 
-        : `http://localhost:5000/devices?category=${encodeURIComponent(category)}`;
+        ? '${API_URL}:5000/devices' 
+        : `${API_URL}/devices?category=${encodeURIComponent(category)}`;
       const res = await fetch(url);
       const data = await res.json();
       setDevices(data);
@@ -66,7 +68,7 @@ function DeviceList({ devices: initialDevices }) {
   const addToFavorites = async (deviceId) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:5000/favorites', {
+      const res = await fetch('${API_URL}/favorites', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

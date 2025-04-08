@@ -8,6 +8,8 @@ function Favorites() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
@@ -18,7 +20,7 @@ function Favorites() {
           return;
         }
 
-        const res = await fetch('http://localhost:5000/favorites', {
+        const res = await fetch('${API_URL}/favorites', {
           headers: { 'Authorization': `Bearer ${token}` },
         });
         const data = await res.json();
@@ -40,7 +42,7 @@ function Favorites() {
   const removeFromFavorites = async (deviceId) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`http://localhost:5000/favorites/${deviceId}`, {
+      const res = await fetch(`${API_URL}/${deviceId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` },
       });
