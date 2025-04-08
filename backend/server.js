@@ -9,11 +9,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// เชื่อมต่อ MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-
-}).then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('MongoDB connection error:', err));
+// เชื่อมต่อ MongoDB Atlas
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log('Connected to MongoDB Atlas'))
+  .catch(err => console.error('MongoDB Atlas connection error:', err));
 
 // Middleware
 const authMiddleware = (req, res, next) => {
@@ -41,7 +40,7 @@ const deviceSchema = new mongoose.Schema({
   model: String,
   description: String,
   price: Number,
-  imageUrl: String,
+  imageUrl: String
 });
 const Device = mongoose.model('Device', deviceSchema);
 
@@ -50,47 +49,67 @@ const userSchema = new mongoose.Schema({
   username: { type: String, unique: true },
   password: String,
   role: { type: String, default: 'user' },
-  createdAt: { type: Date, default: Date.now },
+  createdAt: { type: Date, default: Date.now }
 });
 const User = mongoose.model('User', userSchema);
 
 // Favorite Schema
 const favoriteSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  deviceId: { type: mongoose.Schema.Types.ObjectId, ref: 'Device' },
+  deviceId: { type: mongoose.Schema.Types.ObjectId, ref: 'Device' }
 });
 const Favorite = mongoose.model('Favorite', favoriteSchema);
 
 // Routes
 app.get('/devices', async (req, res) => {
-  const { category } = req.query;
-  const query = category ? { category } : {};
-  const devices = await Device.find(query);
-  res.json(devices);
+  try {
+    const { category } = req.query;
+    const query = category ? { category } : {};
+    const devices = await Device.find(query);
+    res.json(devices);
+  } catch (err) {
+    res.status(500).json({ message: 'เกิดข้อผิดพลาด' });
+  }
 });
 
 app.get('/devices/:id', async (req, res) => {
-  const device = await Device.findById(req.params.id);
-  if (!device) return res.status(404).json({ message: 'ไม่พบอุปกรณ์' });
-  res.json(device);
+  try {
+    const device = await Device.findById(req.params.id);
+    if (!device) return res.status(404).json({ message: 'ไม่พบอุปกรณ์' });
+    res.json(device);
+  } catch (err) {
+    res.status(404).json({ message: 'ไม่พบอุปกรณ์' });
+  }
 });
 
 app.post('/devices', authMiddleware, adminMiddleware, async (req, res) => {
-  const newDevice = new Device(req.body);
-  await newDevice.save();
-  res.json(newDevice);
+  try {
+    const newDevice = new Device(req.body);
+    await newDevice.save();
+    res.json(newDevice);
+  } catch (err) {
+    res.status(500).json({ message: 'เกิดข้อผิดพลาด' });
+  }
 });
 
 app.put('/devices/:id', authMiddleware, adminMiddleware, async (req, res) => {
-  const updatedDevice = await Device.findByIdAndUpdate(req.params.id, req.body, { new: true });
-  if (!updatedDevice) return res.status(404).json({ message: 'ไม่พบอุปกรณ์' });
-  res.json(updatedDevice);
+  try {
+    const updatedDevice = await Device.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updatedDevice) return res.status(404).json({ message: 'ไม่พบอุปกรณ์' });
+    res.json(updatedDevice);
+  } catch (err) {
+    res.status(500).json({ message: 'เกิดข้อผิดพลาด' });
+  }
 });
 
 app.delete('/devices/:id', authMiddleware, adminMiddleware, async (req, res) => {
-  const deletedDevice = await Device.findByIdAndDelete(req.params.id);
-  if (!deletedDevice) return res.status(404).json({ message: 'ไม่พบอุปกรณ์' });
-  res.send('Device deleted');
+  try {
+    const deletedDevice = await Device.findByIdAndDelete(req.params.id);
+    if (!deletedDevice) return res.status(404).json({ message: 'ไม่พบอุปกรณ์' });
+    res.send('Device deleted');
+  } catch (err) {
+    res.status(500).json({ message: 'เกิดข้อผิดพลาด' });
+  }
 });
 
 app.post('/register', async (req, res) => {
@@ -111,20 +130,28 @@ app.post('/register', async (req, res) => {
 
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
-  const user = await User.findOne({ username });
-  if (!user) return res.status(400).json({ message: 'ไม่พบผู้ใช้' });
+  try {
+    const user = await User.findOne({ username });
+    if (!user) return res.status(400).json({ message: 'ไม่พบผู้ใช้' });
 
-  const isMatch = await bcrypt.compare(password, user.password);
-  if (!isMatch) return res.status(400).json({ message: 'รหัสผ่านไม่ถูกต้อง' });
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(400).json({ message: 'รหัสผ่านไม่ถูกต้อง' });
 
-  const token = jwt.sign({ id: user._id, role: user.role, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
-  res.json({ token, role: user.role, username: user.username });
+    const token = jwt.sign({ id: user._id, role: user.role, username: user.username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.json({ token, role: user.role, username: user.username });
+  } catch (err) {
+    res.status(500).json({ message: 'เกิดข้อผิดพลาดในการล็อกอิน' });
+  }
 });
 
 app.get('/profile', authMiddleware, async (req, res) => {
-  const user = await User.findById(req.user.id).select('-password');
-  if (!user) return res.status(404).json({ message: 'ไม่พบผู้ใช้' });
-  res.json(user);
+  try {
+    const user = await User.findById(req.user.id).select('-password');
+    if (!user) return res.status(404).json({ message: 'ไม่พบผู้ใช้' });
+    res.json(user);
+  } catch (err) {
+    res.status(500).json({ message: 'เกิดข้อผิดพลาด' });
+  }
 });
 
 app.put('/profile', authMiddleware, async (req, res) => {
@@ -141,8 +168,8 @@ app.put('/profile', authMiddleware, async (req, res) => {
       return res.status(400).json({ message: 'รหัสผ่านเก่าไม่ถูกต้อง' });
     }
 
-    const updateData = { password: await bcrypt.hash(newPassword, 10) };
-    const updatedUser = await User.findByIdAndUpdate(req.user.id, updateData, { new: true }).select('-password');
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    const updatedUser = await User.findByIdAndUpdate(req.user.id, { password: hashedPassword }, { new: true }).select('-password');
     res.json({ message: 'อัปเดตรหัสผ่านสำเร็จ', user: updatedUser });
   } catch (err) {
     console.error(err);
@@ -162,7 +189,6 @@ app.post('/favorites', authMiddleware, async (req, res) => {
     await favorite.save();
     res.status(201).json({ message: 'เพิ่มไปยังรายการโปรดสำเร็จ' });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: 'เกิดข้อผิดพลาด' });
   }
 });
@@ -172,7 +198,6 @@ app.get('/favorites', authMiddleware, async (req, res) => {
     const favorites = await Favorite.find({ userId: req.user.id }).populate('deviceId');
     res.json(favorites.map(fav => fav.deviceId));
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: 'เกิดข้อผิดพลาด' });
   }
 });
@@ -186,12 +211,11 @@ app.delete('/favorites/:deviceId', authMiddleware, async (req, res) => {
     }
     res.json({ message: 'ลบออกจากรายการโปรดสำเร็จ' });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: 'เกิดข้อผิดพลาด' });
   }
 });
 
-// New Route: Users Stats (เฉพาะ admin)
+// Users Stats (เฉพาะ admin)
 app.get('/users/stats', authMiddleware, adminMiddleware, async (req, res) => {
   try {
     const totalUsers = await User.countDocuments();
@@ -200,10 +224,9 @@ app.get('/users/stats', authMiddleware, adminMiddleware, async (req, res) => {
     res.json({
       total: totalUsers,
       admins: adminUsers,
-      users: regularUsers,
+      users: regularUsers
     });
   } catch (err) {
-    console.error(err);
     res.status(500).json({ message: 'เกิดข้อผิดพลาดในการนับจำนวนผู้ใช้' });
   }
 });
