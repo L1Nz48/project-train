@@ -6,7 +6,12 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const app = express();
-app.use(cors({ origin: 'https://project-train-1.onrender.com' })); // แทนที่ด้วย URL จริงของ frontend
+app.use(cors({
+  origin: 'https://project-train-1.onrender.com/', // URL ของ frontend บน Render
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // อนุญาต HTTP methods ที่ใช้
+  credentials: true // ถ้ามีการส่ง cookies หรือ headers พิเศษ
+}));
+app.use(express.json());
 app.use(express.json());
 
 // เชื่อมต่อ MongoDB Atlas
