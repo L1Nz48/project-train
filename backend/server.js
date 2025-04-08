@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: 'https://project-train-1.onrender.com' })); // แทนที่ด้วย URL จริงของ frontend
 app.use(express.json());
 
 // เชื่อมต่อ MongoDB Atlas
@@ -27,7 +27,7 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
-app.use(cors({ origin: 'https://project-train-1.onrender.com' })); // แทนที่ด้วย URL จริงของ frontend
+
 
 const adminMiddleware = (req, res, next) => {
   if (req.user.role !== 'admin') return res.status(403).json({ message: 'ไม่มีสิทธิ์' });
