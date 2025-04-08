@@ -9,7 +9,14 @@ function Profile() {
     oldPassword: '', 
     newPassword: '', 
     createdAt: '' 
+    
   });
+
+
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
+
+
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(''); // เพิ่ม state สำหรับ error
   const [successMessage, setSuccessMessage] = useState(''); // เพิ่ม state สำหรับ success
@@ -25,7 +32,7 @@ function Profile() {
           return;
         }
 
-        const res = await fetch('http://localhost:5000/profile', {
+        const res = await fetch('${API_URL}/profile', {
           headers: { 'Authorization': `Bearer ${token}` },
         });
         const data = await res.json();
@@ -73,7 +80,7 @@ function Profile() {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:5000/profile', {
+      const res = await fetch('${API_URL}/profile', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -12,10 +12,12 @@ function DeviceDetail() {
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem('token');
 
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
   useEffect(() => {
     const fetchDevice = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/devices/${id}`);
+        const res = await fetch(`${API_URL}/devices/${id}`);
         if (!res.ok) {
           throw new Error('Device not found');
         }
@@ -24,7 +26,7 @@ function DeviceDetail() {
 
         if (isLoggedIn) {
           const token = localStorage.getItem('token');
-          const favRes = await fetch('http://localhost:5000/favorites', {
+          const favRes = await fetch('${API_URL}/favorites', {
             headers: { 'Authorization': `Bearer ${token}` },
           });
           const favData = await favRes.json();
@@ -50,7 +52,7 @@ function DeviceDetail() {
     const token = localStorage.getItem('token');
     try {
       if (isFavorite) {
-        const res = await fetch(`http://localhost:5000/favorites/${id}`, {
+        const res = await fetch(`${API_URL}/favorites/${id}`, {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${token}` },
         });
