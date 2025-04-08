@@ -12,6 +12,9 @@ function AdminForm() {
     price: '',
     imageUrl: '',
   });
+
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -23,7 +26,7 @@ function AdminForm() {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:5000/devices', {
+      const res = await fetch('${API_URL}/devices', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

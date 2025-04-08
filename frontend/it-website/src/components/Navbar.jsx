@@ -10,6 +10,9 @@ function Navbar() {
   const [userStats, setUserStats] = useState({ total: 0, admins: 0, users: 0 });
   const [isScrolled, setIsScrolled] = useState(false); // เพิ่ม state เพื่อตรวจจับการเลื่อน
 
+  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
@@ -50,7 +53,7 @@ function Navbar() {
   const fetchUserStats = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:5000/users/stats', {
+      const res = await fetch('${API_URL}/users/stats', {
         headers: { 'Authorization': `Bearer ${token}` },
       });
       const data = await res.json();
