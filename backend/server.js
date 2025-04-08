@@ -27,7 +27,6 @@ const authMiddleware = (req, res, next) => {
   }
 };
 
-const cors = require('cors');
 app.use(cors({ origin: 'https://project-train-1.onrender.com' })); // แทนที่ด้วย URL จริงของ frontend
 
 const adminMiddleware = (req, res, next) => {
