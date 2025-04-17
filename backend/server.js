@@ -7,7 +7,7 @@ const bcrypt = require('bcryptjs');
 
 const app = express();
 app.use(cors({
-  origin: 'https://project-train-1.onrender.com/', // URL ของ frontend บน Render
+  origin: ['https://project-train-1.onrender.com', 'https://project-train-1.onrender.com/'], // URL ของ frontend บน Render
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // อนุญาต HTTP methods ที่ใช้
   credentials: true // ถ้ามีการส่ง cookies หรือ headers พิเศษ
 }));
