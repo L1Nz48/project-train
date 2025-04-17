@@ -64,7 +64,7 @@ function DeviceDetail() {
           toast.error(data.message, { position: 'top-right' });
         }
       } else {
-        const res = await fetch('http://localhost:5000/favorites', {
+        const res = await fetch('${API_URL}/favorites', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

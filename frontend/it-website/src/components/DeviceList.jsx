@@ -44,7 +44,7 @@ function DeviceList({ devices: initialDevices }) {
     setLoading(true);
     try {
       const url = category === 'all' 
-        ? '${API_URL}:5000/devices' 
+        ? '${API_URL}/devices' 
         : `${API_URL}/devices?category=${encodeURIComponent(category)}`;
       const res = await fetch(url);
       const data = await res.json();
