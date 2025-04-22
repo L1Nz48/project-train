@@ -19,7 +19,7 @@ function App() {
 
   useEffect(() => {
     console.log('Starting to fetch devices...');
-    fetch('http://localhost:5000/devices')
+    fetch('https://project-train.onrender.com/devices')
       .then(res => {
         if (!res.ok) {
           throw new Error('Failed to fetch devices');

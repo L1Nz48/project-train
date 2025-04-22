@@ -8,7 +8,7 @@ function Login() {
   const [registerData, setRegisterData] = useState({ username: '', password: '' });
   const navigate = useNavigate();
 
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  const API_URL = import.meta.env.VITE_API_URL || 'https://project-train.onrender.com';
 
 
   const handleLoginChange = (e) => {

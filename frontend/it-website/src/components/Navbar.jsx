@@ -10,7 +10,7 @@ function Navbar() {
   const [userStats, setUserStats] = useState({ total: 0, admins: 0, users: 0 });
   const [isScrolled, setIsScrolled] = useState(false); // เพิ่ม state เพื่อตรวจจับการเลื่อน
 
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  const API_URL = import.meta.env.VITE_API_URL || 'https://project-train.onrender.com';
 
 
   const handleLogout = () => {

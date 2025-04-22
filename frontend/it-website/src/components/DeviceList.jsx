@@ -14,7 +14,7 @@ function DeviceList({ devices: initialDevices }) {
   const navigate = useNavigate(); // เพิ่ม navigate
 
   console.log('VITE_API_URL from env:', import.meta.env.VITE_API_URL);
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+  const API_URL = import.meta.env.VITE_API_URL || 'https://project-train.onrender.com';
   console.log('Final API_URL:', API_URL);
 
   useEffect(() => {
