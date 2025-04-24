@@ -5,21 +5,14 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
+const app = express();
 app.use(cors({
-  origin: (origin, callback) => {
-    const allowedOrigins = [
-      'https://project-train-1.onrender.com',
-      'https://project-train-1.onrender.com/'
-    ];
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true
+  origin: ['https://project-train-1.onrender.com', 'https://project-train-1.onrender.com/'], // URL ของ frontend บน Render
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // อนุญาต HTTP methods ที่ใช้
+  credentials: true // ถ้ามีการส่ง cookies หรือ headers พิเศษ
 }));
+app.use(express.json());
+app.use(express.json());
 
 // เชื่อมต่อ MongoDB Atlas
 mongoose.connect(process.env.MONGO_URI)
