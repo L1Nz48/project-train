@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Loading from './Loading';
 
 function Favorites() {
@@ -20,18 +21,20 @@ function Favorites() {
           return;
         }
 
+        console.log('Fetching favorites from:', API_URL);
         const res = await fetch(`${API_URL}/favorites`, {
           headers: { 'Authorization': `Bearer ${token}` },
+          signal: AbortSignal.timeout(30000), // Timeout 30 วินาที
         });
         const data = await res.json();
         if (res.ok) {
           setFavorites(data);
         } else {
-          toast.error(data.message || 'ไม่สามารถดึงรายการโปรด', { position: 'top-right' });
+          throw new Error(data.message || 'ไม่สามารถดึงรายการโปรด');
         }
       } catch (err) {
         console.error('Error fetching favorites:', err);
-        toast.error('เกิดข้อผิดพลาดในการเชื่อมต่อ', { position: 'top-right' });
+        toast.error(err.message || 'เกิดข้อผิดพลาดในการเชื่อมต่อ', { position: 'top-right' });
       } finally {
         setLoading(false);
       }
@@ -42,7 +45,8 @@ function Favorites() {
   const removeFromFavorites = async (deviceId) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch(`${API_URL}/${deviceId}`, {
+      console.log('Removing favorite with URL:', `${API_URL}/favorites/${deviceId}`);
+      const res = await fetch(`${API_URL}/favorites/${deviceId}`, {
         method: 'DELETE',
         headers: { 'Authorization': `Bearer ${token}` },
       });
@@ -51,11 +55,11 @@ function Favorites() {
         toast.success(data.message, { position: 'top-right' });
         setFavorites(favorites.filter(device => device._id !== deviceId));
       } else {
-        toast.error(data.message, { position: 'top-right' });
+        throw new Error(data.message || 'ไม่สามารถลบรายการโปรด');
       }
     } catch (err) {
-      console.error('Error:', err);
-      toast.error('เกิดข้อผิดพลาดในการเชื่อมต่อ', { position: 'top-right' });
+      console.error('Remove favorite error:', err);
+      toast.error(err.message || 'เกิดข้อผิดพลาดในการเชื่อมต่อ', { position: 'top-right' });
     }
   };
 
