@@ -26,7 +26,7 @@ function DeviceDetail() {
 
         if (isLoggedIn) {
           const token = localStorage.getItem('token');
-          const favRes = await fetch('${API_URL}/favorites', {
+          const favRes = await fetch(`${API_URL}/favorites`, {
             headers: { 'Authorization': `Bearer ${token}` },
           });
           const favData = await favRes.json();
@@ -64,7 +64,7 @@ function DeviceDetail() {
           toast.error(data.message, { position: 'top-right' });
         }
       } else {
-        const res = await fetch('${API_URL}/favorites', {
+        const res = await fetch(`${API_URL}/favorites`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

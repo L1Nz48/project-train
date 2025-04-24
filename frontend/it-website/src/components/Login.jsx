@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
   const [activeTab, setActiveTab] = useState('login');
@@ -9,7 +10,6 @@ function Login() {
   const navigate = useNavigate();
 
   const API_URL = import.meta.env.VITE_API_URL || 'https://project-train.onrender.com';
-
 
   const handleLoginChange = (e) => {
     const { name, value } = e.target;
@@ -24,7 +24,8 @@ function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('${API_URL}/login', {
+      console.log('Logging in with API_URL:', API_URL);
+      const res = await fetch(`${API_URL}/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(loginData),
@@ -37,18 +38,19 @@ function Login() {
         toast.success('ล็อกอินสำเร็จ!', { position: 'top-right' });
         setTimeout(() => navigate('/'), 2000);
       } else {
-        toast.error(data.message, { position: 'top-right' });
+        throw new Error(data.message || 'เกิดข้อผิดพลาดในการล็อกอิน');
       }
     } catch (err) {
-      console.error('Error:', err);
-      toast.error('เกิดข้อผิดพลาดในการเชื่อมต่อ', { position: 'top-right' });
+      console.error('Login error:', err);
+      toast.error(err.message || 'เกิดข้อผิดพลาดในการเชื่อมต่อ', { position: 'top-right' });
     }
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('${API_URL}/register', {
+      console.log('Registering with API_URL:', API_URL);
+      const res = await fetch(`${API_URL}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...registerData, role: 'user' }),
@@ -59,11 +61,11 @@ function Login() {
         setActiveTab('login');
         setRegisterData({ username: '', password: '' });
       } else {
-        toast.error(data.message || 'เกิดข้อผิดพลาด', { position: 'top-right' });
+        throw new Error(data.message || 'เกิดข้อผิดพลาดในการลงทะเบียน');
       }
     } catch (err) {
-      console.error('Error:', err);
-      toast.error('เกิดข้อผิดพลาดในการเชื่อมต่อ', { position: 'top-right' });
+      console.error('Register error:', err);
+      toast.error(err.message || 'เกิดข้อผิดพลาดในการเชื่อมต่อ', { position: 'top-right' });
     }
   };
 
