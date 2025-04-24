@@ -92,7 +92,7 @@ function Favorites() {
                       removeFromFavorites(device._id);
                     }}
                   >
-                    ★
+                    ❌
                   </button>
                 </div>
               </div>
