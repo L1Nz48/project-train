@@ -27,7 +27,7 @@ function DeviceList({ devices: initialDevices }) {
   const fetchFavorites = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('${API_URL}/favorites', {
+      const res = await fetch(`${API_URL}/favorites`, {
         headers: { 'Authorization': `Bearer ${token}` },
       });
       const data = await res.json();
@@ -44,7 +44,7 @@ function DeviceList({ devices: initialDevices }) {
     setLoading(true);
     try {
       const url = category === 'all' 
-        ? '${API_URL}/devices' 
+        ? `${API_URL}/devices` 
         : `${API_URL}/devices?category=${encodeURIComponent(category)}`;
       const res = await fetch(url);
       const data = await res.json();
@@ -70,7 +70,7 @@ function DeviceList({ devices: initialDevices }) {
   const addToFavorites = async (deviceId) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('${API_URL}/favorites', {
+      const res = await fetch(`${API_URL}/favorites`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
