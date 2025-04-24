@@ -26,7 +26,7 @@ function AdminForm() {
     e.preventDefault();
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('${API_URL}/devices', {
+      const res = await fetch(`${API_URL}/devices`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

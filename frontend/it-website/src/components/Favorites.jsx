@@ -20,7 +20,7 @@ function Favorites() {
           return;
         }
 
-        const res = await fetch('${API_URL}/favorites', {
+        const res = await fetch(`${API_URL}/favorites`, {
           headers: { 'Authorization': `Bearer ${token}` },
         });
         const data = await res.json();

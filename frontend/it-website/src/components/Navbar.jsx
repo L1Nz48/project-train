@@ -53,7 +53,7 @@ function Navbar() {
   const fetchUserStats = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('${API_URL}/users/stats', {
+      const res = await fetch(`${API_URL}/users/stats`, {
         headers: { 'Authorization': `Bearer ${token}` },
       });
       const data = await res.json();

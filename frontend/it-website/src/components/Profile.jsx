@@ -32,7 +32,7 @@ function Profile() {
           return;
         }
 
-        const res = await fetch('${API_URL}/profile', {
+        const res = await fetch(`${API_URL}/profile`, {
           headers: { 'Authorization': `Bearer ${token}` },
         });
         const data = await res.json();
@@ -80,7 +80,7 @@ function Profile() {
 
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('${API_URL}/profile', {
+      const res = await fetch(`${API_URL}/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
