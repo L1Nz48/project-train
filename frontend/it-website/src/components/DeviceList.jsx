@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Loading from './Loading';
-import './DeviceList.css';
+
 
 function DeviceList({ devices: initialDevices }) {
   const [devices, setDevices] = useState(initialDevices);
