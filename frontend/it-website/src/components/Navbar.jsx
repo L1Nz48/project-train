@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import './Navbar.css';
 
 function Navbar() {
   const role = localStorage.getItem('role');
@@ -8,10 +10,9 @@ function Navbar() {
   const navigate = useNavigate();
   const [theme, setTheme] = useState('light');
   const [userStats, setUserStats] = useState({ total: 0, admins: 0, users: 0 });
-  const [isScrolled, setIsScrolled] = useState(false); // เพิ่ม state เพื่อตรวจจับการเลื่อน
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const API_URL = import.meta.env.VITE_API_URL || 'https://project-train.onrender.com';
-
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -24,20 +25,19 @@ function Navbar() {
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
-    document.body.className = newTheme;
+    document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
   };
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme);
-    document.body.className = savedTheme;
+    document.documentElement.setAttribute('data-theme', savedTheme);
 
     if (role === 'admin') {
       fetchUserStats();
     }
 
-    // ตรวจจับการเลื่อน
     const handleScroll = () => {
       if (window.scrollY > 50) {
         setIsScrolled(true);
@@ -47,7 +47,7 @@ function Navbar() {
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll); // ล้าง event listener
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [role]);
 
   const fetchUserStats = async () => {
@@ -55,6 +55,7 @@ function Navbar() {
       const token = localStorage.getItem('token');
       const res = await fetch(`${API_URL}/users/stats`, {
         headers: { 'Authorization': `Bearer ${token}` },
+        signal: AbortSignal.timeout(30000),
       });
       const data = await res.json();
       if (res.ok) {
@@ -68,14 +69,22 @@ function Navbar() {
   };
 
   return (
-    <nav className={`navbar navbar-expand-lg navbar-dark bg-dark shadow-sm ${isScrolled ? 'small' : ''}`}>
-      <div className="container">
+    <nav className={`navbar navbar-expand-lg navbar-dark bg-dark shadow-sm ${isScrolled ? 'navbar-scrolled' : ''}`}>
+      <div className="container-fluid">
         <Link className="navbar-brand fw-bold" to="/">IT L1Nz</Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <button 
+          className="navbar-toggler" 
+          type="button" 
+          data-bs-toggle="collapse" 
+          data-bs-target="#navbarNav" 
+          aria-controls="navbarNav" 
+          aria-expanded="false" 
+          aria-label="Toggle navigation"
+        >
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav me-auto">
+          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <Link className="nav-link" to="/">หน้าแรก</Link>
             </li>
@@ -103,29 +112,37 @@ function Navbar() {
               </li>
             )}
           </ul>
-          <ul className="navbar-nav">
+          <ul className="navbar-nav ms-auto">
             {role && (
               <>
-                <li className="nav-item">
-                  <span className="nav-link text-info">สวัสดี, {username}</span>
+                <li className="nav-item d-flex align-items-center">
+                  <span className="nav-link text-info text-truncate" style={{ maxWidth: '150px' }}>
+                    สวัสดี, {username}
+                  </span>
                 </li>
                 {role === 'admin' && (
-                  <li className="nav-item">
-                    <span className="nav-link text-light">
-                      ผู้ใช้ทั้งหมด: {userStats.total} (Admin: {userStats.admins}, User: {userStats.users})
+                  <li className="nav-item d-flex align-items-center d-none d-lg-flex">
+                    <span className="nav-link text-light text-truncate" style={{ maxWidth: '200px' }}>
+                      ผู้ใช้: {userStats.total} (Admin: {userStats.admins}, User: {userStats.users})
                     </span>
                   </li>
                 )}
                 <li className="nav-item">
-                  <button className="btn btn-link text-warning no-underline" onClick={handleLogout}>
-                    ออกจากระบบ
+                  <button 
+                    className="btn btn-outline-danger btn-sm ms-2" 
+                    onClick={handleLogout}
+                  >
+                    <i className="bi bi-box-arrow-right"></i> ออก
                   </button>
                 </li>
               </>
             )}
             <li className="nav-item">
-              <button className="btn btn-link text-light no-underline" onClick={toggleTheme}>
-                {theme === 'light' ? '🌙 มืด' : '☀️ สว่าง'}
+              <button 
+                className="btn btn-outline-light btn-sm ms-2" 
+                onClick={toggleTheme}
+              >
+                {theme === 'light' ? <i className="bi bi-moon-stars-fill"></i> : <i className="bi bi-sun-fill"></i>}
               </button>
             </li>
           </ul>

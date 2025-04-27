@@ -40,7 +40,7 @@ function Home() {
             style={{ height: '400px', objectFit: 'cover' }}
           />
           <Carousel.Caption>
-            <h3>สินค้าคุณภาพสูง</h3>
+            <h3>รายละเอียดอุปกรณ์ครบ</h3>
             <p>เลือกสิ่งที่ดีที่สุดสำหรับคุณ</p>
           </Carousel.Caption>
         </Carousel.Item>

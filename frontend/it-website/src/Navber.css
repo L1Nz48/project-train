@@ -1,0 +1,43 @@
+.navbar-scrolled {
+    padding: 0.5rem 1rem;
+    transition: padding 0.3s ease;
+  }
+  
+  .navbar {
+    padding: 1rem 1rem;
+    transition: padding 0.3s ease;
+  }
+  
+  [data-theme="dark"] {
+    background-color: #212529;
+    color: #f8f9fa;
+  }
+  
+  [data-theme="dark"] .navbar-dark .nav-link {
+    color: #f8f9fa;
+  }
+  
+  [data-theme="dark"] .btn-outline-light {
+    color: #f8f9fa;
+    border-color: #f8f9fa;
+  }
+  
+  [data-theme="dark"] .btn-outline-danger {
+    color: #dc3545;
+    border-color: #dc3545;
+  }
+  
+  @media (max-width: 576px) {
+    .navbar-nav .nav-link {
+      padding: 0.5rem 0;
+    }
+    .navbar-nav .btn {
+      margin: 0.5rem 0;
+      width: 100%;
+      text-align: left;
+    }
+    .navbar-collapse {
+      background-color: #343a40;
+      padding: 1rem;
+    }
+  }
