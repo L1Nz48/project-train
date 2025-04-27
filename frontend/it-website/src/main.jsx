@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './index.css'; // เพิ่มไฟล์ CSS หลัก
 import './Loading.css'; 
 import './Navbar.css';
+import './DeviceDetail.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

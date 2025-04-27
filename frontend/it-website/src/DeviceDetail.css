@@ -1,0 +1,33 @@
+.device-detail-card {
+    max-width: 700px;
+    border-radius: 15px;
+  }
+  
+  .device-detail-img {
+    height: 300px;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+  }
+  
+  @media (max-width: 576px) {
+    .device-detail-card {
+      max-width: 100%;
+    }
+    .device-detail-img {
+      height: 200px;
+    }
+    .btn-favorite {
+      font-size: 1.2rem;
+      padding: 0.5rem 1rem;
+    }
+  }
+  
+  .btn-favorite {
+    font-size: 1.5rem;
+  }
+  
+  .btn-favorite.favorite-active {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+  }
