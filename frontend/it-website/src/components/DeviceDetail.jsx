@@ -8,7 +8,8 @@ function DeviceDetail() {
   const [device, setDevice] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isFavorite, setIsFavorite] = useState(false); // เพิ่ม state สำหรับสถานะโปรด
+  const [isFavorite, setIsFavorite] = useState(false);
+  const [favoriteLoading, setFavoriteLoading] = useState(false);
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem('token');
 
@@ -17,9 +18,12 @@ function DeviceDetail() {
   useEffect(() => {
     const fetchDevice = async () => {
       try {
-        const res = await fetch(`${API_URL}/devices/${id}`);
+        const res = await fetch(`${API_URL}/devices/${id}`, {
+          signal: AbortSignal.timeout(30000),
+        });
         if (!res.ok) {
-          throw new Error('Device not found');
+          const data = await res.json();
+          throw new Error(data.message || 'Device not found');
         }
         const data = await res.json();
         setDevice(data);
@@ -28,11 +32,13 @@ function DeviceDetail() {
           const token = localStorage.getItem('token');
           const favRes = await fetch(`${API_URL}/favorites`, {
             headers: { 'Authorization': `Bearer ${token}` },
+            signal: AbortSignal.timeout(30000),
           });
-          const favData = await favRes.json();
-          if (favRes.ok) {
-            setIsFavorite(favData.some(fav => fav._id === id));
+          if (!favRes.ok) {
+            throw new Error('Failed to fetch favorites');
           }
+          const favData = await favRes.json();
+          setIsFavorite(favData.some(fav => fav._id === id));
         }
       } catch (err) {
         console.error('Fetch error:', err.message);
@@ -49,19 +55,22 @@ function DeviceDetail() {
   }, [id, navigate, isLoggedIn]);
 
   const toggleFavorite = async () => {
+    if (favoriteLoading) return;
+    setFavoriteLoading(true);
     const token = localStorage.getItem('token');
     try {
       if (isFavorite) {
         const res = await fetch(`${API_URL}/favorites/${id}`, {
           method: 'DELETE',
           headers: { 'Authorization': `Bearer ${token}` },
+          signal: AbortSignal.timeout(30000),
         });
         const data = await res.json();
         if (res.ok) {
-          toast.success(data.message, { position: 'top-right' });
+          toast.success(data.message || 'ลบออกจากรายการโปรดสำเร็จ', { position: 'top-right' });
           setIsFavorite(false);
         } else {
-          toast.error(data.message, { position: 'top-right' });
+          toast.error(data.message || 'เกิดข้อผิดพลาด', { position: 'top-right' });
         }
       } else {
         const res = await fetch(`${API_URL}/favorites`, {
@@ -71,18 +80,21 @@ function DeviceDetail() {
             'Authorization': `Bearer ${token}`,
           },
           body: JSON.stringify({ deviceId: id }),
+          signal: AbortSignal.timeout(30000),
         });
         const data = await res.json();
         if (res.ok) {
-          toast.success(data.message, { position: 'top-right' });
+          toast.success(data.message || 'เพิ่มในรายการโปรดสำเร็จ', { position: 'top-right' });
           setIsFavorite(true);
         } else {
-          toast.error(data.message, { position: 'top-right' });
+          toast.error(data.message || 'เกิดข้อผิดพลาด', { position: 'top-right' });
         }
       }
     } catch (err) {
       console.error('Error:', err);
       toast.error('เกิดข้อผิดพลาดในการเชื่อมต่อ', { position: 'top-right' });
+    } finally {
+      setFavoriteLoading(false);
     }
   };
 
@@ -92,9 +104,9 @@ function DeviceDetail() {
 
   if (error) {
     return (
-      <div className="container mt-5 text-center">
-        <h2 className="text-danger">เกิดข้อผิดพลาด: {error}</h2>
-        <p>กำลังนำคุณกลับไปหน้ารายการอุปกรณ์...</p>
+      <div className="container my-5 text-center">
+        <h2 className="text-danger fs-4">เกิดข้อผิดพลาด: {error}</h2>
+        <p className="fs-5">กำลังนำคุณกลับไปหน้ารายการอุปกรณ์...</p>
       </div>
     );
   }
@@ -104,36 +116,43 @@ function DeviceDetail() {
   }
 
   return (
-    <div className="container mt-5">
-      <div className="card shadow-lg p-4 mx-auto" style={{ maxWidth: '700px', borderRadius: '15px' }}>
+    <div className="container my-5">
+      <div className="card shadow-lg p-4 mx-auto device-detail-card">
         <img
           src={device.imageUrl}
-          className="card-img-top"
-          alt={device.name}
-          style={{ height: '300px', objectFit: 'cover', borderRadius: '15px 15px 0 0' }}
+          className="card-img-top device-detail-img"
+          alt={`รูปภาพของ ${device.name}`}
+          onError={(e) => { e.target.src = 'https://via.placeholder.com/300x200?text=Image+Not+Found'; }}
         />
         <div className="card-body">
-          <h2 className="card-title text-primary fw-bold">{device.name}</h2>
-          <p className="card-text text-muted">{device.description}</p>
+          <h2 className="card-title text-primary fw-bold fs-4">{device.name}</h2>
+          <p className="card-text text-muted fs-5">{device.description}</p>
           <ul className="list-group list-group-flush mb-3">
             <li className="list-group-item"><strong>หมวดหมู่:</strong> {device.category}</li>
             <li className="list-group-item"><strong>ยี่ห้อ:</strong> {device.brand}</li>
             <li className="list-group-item"><strong>รุ่น:</strong> {device.model}</li>
             <li className="list-group-item"><strong>ราคา:</strong> {device.price.toLocaleString()} บาท</li>
           </ul>
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between align-items-center">
             <button
               className="btn btn-outline-primary"
               onClick={() => navigate('/devices')}
+              aria-label="กลับไปหน้ารายการอุปกรณ์"
             >
-              กลับไปหน้ารายการอุปกรณ์
+              กลับ
             </button>
             {isLoggedIn && (
               <button
-                className={`btn btn-star ${isFavorite ? 'btn-danger' : 'btn-outline-secondary'}`}
+                className={`btn btn-favorite ${isFavorite ? 'favorite-active' : 'btn-outline-secondary'}`}
                 onClick={toggleFavorite}
+                disabled={favoriteLoading}
+                aria-label={isFavorite ? 'ลบออกจากรายการโปรด' : 'เพิ่มในรายการโปรด'}
               >
-                {isFavorite ? '★' : '☆'}
+                {favoriteLoading ? (
+                  <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                ) : (
+                  isFavorite ? '★' : '☆'
+                )}
               </button>
             )}
           </div>
