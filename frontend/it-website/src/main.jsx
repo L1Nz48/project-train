@@ -8,6 +8,7 @@ import './Loading.css';
 import './Navbar.css';
 import './DeviceDetail.css'
 import './DeviceList.css';
+import './Favorites.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
