@@ -10,6 +10,7 @@ import './DeviceDetail.css'
 import './DeviceList.css';
 import './Favorites.css';
 import './Footer.css';
+import './Home.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(

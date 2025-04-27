@@ -1,0 +1,26 @@
+.carousel-img {
+    max-height: 400px;
+    object-fit: cover;
+  }
+  .carousel-caption {
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 5px;
+    padding: 10px;
+  }
+  @media (max-width: 576px) {
+    .carousel-img {
+      max-height: 250px;
+    }
+    .carousel-caption h3 {
+      font-size: 1.2rem;
+    }
+    .carousel-caption p {
+      font-size: 0.9rem;
+    }
+    .jumbotron h2 {
+      font-size: 1.8rem;
+    }
+    .jumbotron .lead {
+      font-size: 1rem;
+    }
+  }
