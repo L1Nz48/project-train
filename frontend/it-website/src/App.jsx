@@ -14,6 +14,7 @@ import DeviceDetail from './components/DeviceDetail';
 import Favorites from './components/Favorites';
 import Footer from './components/Footer';
 import Loading from './components/Loading';
+import { Link } from 'react-router-dom';
 
 function App() {
   const [devices, setDevices] = useState([]);
