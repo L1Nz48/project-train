@@ -1,11 +1,17 @@
-// Loading.jsx
-import React from 'react';
-import '../Loading.css';
+import React, { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 function Loading() {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      toast.error('การโหลดล้มเหลว กรุณาลองใหม่', { position: 'top-right' });
+    }, 30000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="loading-overlay">
-      <div className="loading-container">
+      <div className="loading-container" role="status" aria-live="polite">
         <div className="spinner">
           <div className="circle circle-1"></div>
           <div className="circle circle-2"></div>
