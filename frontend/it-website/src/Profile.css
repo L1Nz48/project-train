@@ -1,0 +1,30 @@
+.profile-card {
+    max-width: 500px;
+    border-radius: 15px;
+  }
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+    line-height: 50px;
+    font-size: 2rem;
+  }
+  .form-control {
+    border-radius: 10px;
+  }
+  .form-control[readonly] {
+    background-color: #f0f0f0;
+  }
+  @media (max-width: 576px) {
+    .profile-avatar {
+      width: 60px;
+      height: 60px;
+      font-size: 1.5rem;
+      line-height: 40px;
+    }
+    .profile-card {
+      padding: 1.5rem;
+    }
+    .form-label {
+      font-size: 0.9rem;
+    }
+  }

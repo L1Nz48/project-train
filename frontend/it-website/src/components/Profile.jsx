@@ -1,39 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify'; // ยังคง import แต่ไม่ใช้ toast
+import { toast } from 'react-toastify';
 import Loading from './Loading';
 
-function Profile() {
-  const [profileData, setProfileData] = useState({ 
-    username: '', 
-    oldPassword: '', 
-    newPassword: '', 
-    createdAt: '' 
-    
-  });
 
+function Profile() {
+  const [profileData, setProfileData] = useState({
+    username: '',
+    oldPassword: '',
+    newPassword: '',
+    createdAt: '',
+  });
+  const [loading, setLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const navigate = useNavigate();
 
   const API_URL = import.meta.env.VITE_API_URL || 'https://project-train.onrender.com';
-
-
-
-  const [loading, setLoading] = useState(true);
-  const [errorMessage, setErrorMessage] = useState(''); // เพิ่ม state สำหรับ error
-  const [successMessage, setSuccessMessage] = useState(''); // เพิ่ม state สำหรับ success
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem('token');
         if (!token) {
-          setErrorMessage('กรุณาล็อกอินก่อน');
+          toast.error('กรุณาล็อกอินก่อน', { position: 'top-right' });
           navigate('/login');
           return;
         }
 
         const res = await fetch(`${API_URL}/profile`, {
-          headers: { 'Authorization': `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${token}` },
+          signal: AbortSignal.timeout(30000),
         });
         const data = await res.json();
 
@@ -51,12 +48,11 @@ function Profile() {
               : 'ไม่ระบุ',
           });
         } else {
-          setErrorMessage(data.message || 'ไม่สามารถดึงข้อมูลโปรไฟล์');
+          toast.error(data.message || 'ไม่สามารถดึงข้อมูลโปรไฟล์', { position: 'top-right' });
           navigate('/login');
         }
       } catch (err) {
-        console.error('Error fetching profile:', err);
-        setErrorMessage('เกิดข้อผิดพลาดในการเชื่อมต่อ');
+        toast.error('เกิดข้อผิดพลาดในการเชื่อมต่อ', { position: 'top-right' });
         navigate('/login');
       } finally {
         setLoading(false);
@@ -68,12 +64,17 @@ function Profile() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProfileData({ ...profileData, [name]: value });
-    setErrorMessage(''); // ล้าง error เมื่อพิมพ์
-    setSuccessMessage(''); // ล้าง success เมื่อพิมพ์
+    setErrorMessage('');
+    setSuccessMessage('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (loading) return;
+    if (profileData.newPassword.length < 6) {
+      toast.error('รหัสผ่านใหม่ต้องมีอย่างน้อย 6 ตัวอักษร', { position: 'top-right' });
+      return;
+    }
     setLoading(true);
     setErrorMessage('');
     setSuccessMessage('');
@@ -84,24 +85,24 @@ function Profile() {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           oldPassword: profileData.oldPassword,
           newPassword: profileData.newPassword,
         }),
+        signal: AbortSignal.timeout(30000),
       });
       const data = await res.json();
 
       if (res.ok) {
-        setSuccessMessage('อัปเดตรหัสผ่านสำเร็จ!');
-        setProfileData({ ...profileData, oldPassword: '', newPassword: '' }); // ล้างฟอร์ม
+        toast.success('อัปเดตรหัสผ่านสำเร็จ!', { position: 'top-right' });
+        setProfileData({ ...profileData, oldPassword: '', newPassword: '' });
       } else {
-        setErrorMessage(data.message || 'เกิดข้อผิดพลาด');
+        toast.error(data.message || 'เกิดข้อผิดพลาด', { position: 'top-right' });
       }
     } catch (err) {
-      console.error('Error updating profile:', err);
-      setErrorMessage('เกิดข้อผิดพลาดในการเชื่อมต่อ');
+      toast.error('เกิดข้อผิดพลาดในการเชื่อมต่อ', { position: 'top-right' });
     } finally {
       setLoading(false);
     }
@@ -112,12 +113,12 @@ function Profile() {
   }
 
   return (
-    <div className="container mt-5">
-      <div className="card shadow-lg p-4 mx-auto" style={{ maxWidth: '500px', borderRadius: '15px' }}>
+    <div className="container my-5">
+      <div className="card shadow-lg p-4 mx-auto profile-card">
         <div className="text-center mb-4">
           <div
-            className="bg-primary text-white p-3 rounded-circle mx-auto"
-            style={{ width: '80px', height: '80px', lineHeight: '50px', fontSize: '2rem' }}
+            className="bg-primary text-white p-3 rounded-circle mx-auto profile-avatar"
+            aria-hidden="true"
           >
             {profileData.username.charAt(0).toUpperCase()}
           </div>
@@ -125,56 +126,77 @@ function Profile() {
           <p className="text-muted">สมาชิกตั้งแต่: {profileData.createdAt}</p>
         </div>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} aria-label="ฟอร์มอัปเดตรหัสผ่าน">
           <div className="mb-4">
-            <label className="form-label fw-bold text-dark">ชื่อผู้ใช้</label>
+            <label htmlFor="username" className="form-label fw-bold text-dark">
+              ชื่อผู้ใช้
+            </label>
             <input
+              id="username"
               type="text"
               name="username"
               value={profileData.username}
               className="form-control shadow-sm"
               readOnly
-              style={{ borderRadius: '10px', backgroundColor: '#f0f0f0' }}
             />
           </div>
           <div className="mb-4">
-            <label className="form-label fw-bold text-dark">รหัสผ่านเก่า</label>
+            <label htmlFor="old-password" className="form-label fw-bold text-dark">
+              รหัสผ่านเก่า
+            </label>
             <input
+              id="old-password"
               type="password"
               name="oldPassword"
               value={profileData.oldPassword}
               onChange={handleChange}
               className="form-control shadow-sm"
               placeholder="กรุณากรอกรหัสผ่านเก่า"
-              style={{ borderRadius: '10px' }}
+              disabled={loading}
             />
-            {errorMessage && <p className="text-danger mt-2">{errorMessage}</p>}
+            {errorMessage && (
+              <p className="text-danger mt-2" role="alert">
+                {errorMessage}
+              </p>
+            )}
           </div>
           <div className="mb-4">
-            <label className="form-label fw-bold text-dark">รหัสผ่านใหม่</label>
+            <label htmlFor="new-password" className="form-label fw-bold text-dark">
+              รหัสผ่านใหม่
+            </label>
             <input
+              id="new-password"
               type="password"
               name="newPassword"
               value={profileData.newPassword}
               onChange={handleChange}
               className="form-control shadow-sm"
               placeholder="กรุณากรอกรหัสผ่านใหม่"
-              style={{ borderRadius: '10px' }}
+              disabled={loading}
             />
           </div>
-          {successMessage && <p className="text-success mb-4 text-center">{successMessage}</p>}
-          <button type="submit" className="btn btn-primary w-100">
-            อัปเดตรหัสผ่าน
+          {successMessage && (
+            <p className="text-success mb-4 text-center" role="alert">
+              {successMessage}
+            </p>
+          )}
+          <button type="submit" className="btn btn-primary w-100" disabled={loading}>
+            {loading ? (
+              <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            ) : (
+              'อัปเดตรหัสผ่าน'
+            )}
           </button>
           <button
+            type="button"
             className="btn btn-outline-secondary w-100 mt-3"
             onClick={() => navigate('/')}
+            disabled={loading}
           >
             กลับไปหน้าแรก
           </button>
         </form>
       </div>
-      <ToastContainer /> {/* ยังคงไว้เผื่อใช้ในอนาคต */}
     </div>
   );
 }

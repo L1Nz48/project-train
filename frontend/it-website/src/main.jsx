@@ -12,6 +12,7 @@ import './Favorites.css';
 import './Footer.css';
 import './Home.css';
 import './Login.css';
+import './Profile.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(

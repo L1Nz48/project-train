@@ -120,7 +120,6 @@ function DeviceList({ devices: initialDevices }) {
           onChange={handleSearch}
           aria-label="ค้นหาอุปกรณ์"
         />
-        <span className="search-icon"></span>
       </div>
 
       <div className="mb-4 text-center">
