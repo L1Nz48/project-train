@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import { ThemeContext } from './ThemeContext';
 
 function Navbar() {
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const role = localStorage.getItem('role');
   const username = localStorage.getItem('username');
   const navigate = useNavigate();
-  const [theme, setTheme] = useState('light');
   const [userStats, setUserStats] = useState({ total: 0, admins: 0, users: 0 });
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -21,23 +22,13 @@ function Navbar() {
     setTimeout(() => navigate('/'), 1500);
   };
 
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    document.documentElement.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
-  };
-
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    setTheme(savedTheme);
-    document.documentElement.setAttribute('data-theme', savedTheme);
-
     if (role === 'admin') {
       fetchUserStats();
     }
 
     const handleScroll = () => {
+      console.log('Scroll position:', window.scrollY); // Debug log
       if (window.scrollY > 50) {
         setIsScrolled(true);
       } else {
@@ -140,6 +131,7 @@ function Navbar() {
               <button 
                 className="btn btn-outline-light btn-sm ms-2" 
                 onClick={toggleTheme}
+                aria-label={theme === 'light' ? 'เปลี่ยนเป็นโหมดมืด' : 'เปลี่ยนเป็นโหมดสว่าง'}
               >
                 {theme === 'light' ? <i className="bi bi-moon-stars-fill"></i> : <i className="bi bi-sun-fill"></i>}
               </button>
