@@ -1,158 +1,81 @@
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import './global.css';
-import { ThemeProvider } from './ThemeContext';
-import Navbar from './components/Navbar';
-import DeviceList from './components/DeviceList';
-import AdminForm from './components/AdminForm';
-import Login from './components/Login';
-import Home from './components/Home';
-import Profile from './components/Profile';
-import DeviceDetail from './components/DeviceDetail';
-import Favorites from './components/Favorites';
-import Footer from './components/Footer';
-import Loading from './components/Loading';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { Carousel } from 'react-bootstrap';
+import './Home.css';
 
-function App() {
-  const [devices, setDevices] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  const API_URL = import.meta.env.VITE_API_URL || 'https://project-train.onrender.com';
-
-  useEffect(() => {
-    console.log('Starting to fetch devices from:', API_URL);
-    const fetchDevices = async () => {
-      try {
-        const response = await fetch(`${API_URL}/devices`, {
-          signal: AbortSignal.timeout(30000),
-        });
-        if (!response.ok) {
-          throw new Error(`Failed to fetch devices: ${response.status} ${response.statusText}`);
-        }
-        const data = await response.json();
-        console.log('Devices fetched:', data);
-        setDevices(Array.isArray(data) ? data : []);
-        setLoading(false);
-      } catch (err) {
-        console.error('Fetch error:', err);
-        setError(err.message || 'เกิดข้อผิดพลาดในการเชื่อมต่อ backend');
-        setLoading(false);
-      }
-    };
-    fetchDevices();
-  }, []);
-
-  if (loading) {
-    return <Loading />;
-  }
-
-  if (error) {
-    return (
-      <div className="container my-5 text-center">
-        <h2 className="text-danger fs-4">เกิดข้อผิดพลาด: {error}</h2>
-        <p className="fs-5">กรุณาตรวจสอบการเชื่อมต่อ backend หรือรีเฟรชหน้า</p>
-        <button 
-          className="btn btn-primary mt-3" 
-          onClick={() => window.location.reload()}
-        >
-          ลองใหม่
-        </button>
-      </div>
-    );
-  }
+function Home() {
+  const isLoggedIn = localStorage.getItem('token');
 
   return (
-    <ThemeProvider>
-      <Router>
-        <div className="d-flex flex-column min-vh-100">
-          <Navbar />
-          <main className="flex-grow-1">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/devices" element={<DeviceList devices={devices} />} />
-              <Route path="/devices/:id" element={<DeviceDetail />} />
-              <Route path="/login" element={<Login />} />
-              <Route
-                path="/admin"
-                element={
-                  localStorage.getItem('role') === 'admin' ? <AdminForm /> : <Login />
-                }
-              />
-              <Route
-                path="/profile"
-                element={
-                  localStorage.getItem('token') ? <Profile /> : <Login />
-                }
-              />
-              <Route
-                path="/favorites"
-                element={
-                  localStorage.getItem('token') ? <Favorites /> : <Login />
-                }
-              />
-              <Route path="/register" element={<Navigate to="/login" state={{ activeTab: 'register' }} />} />
-              <Route
-                path="*"
-                element={
-                  <div className="container my-5 text-center">
-                    <h2 className="text-danger fs-4">404 Not Found</h2>
-                    <p className="fs-5">ขออภัย ไม่พบหน้าที่คุณต้องการ</p>
-                    <Link to="/" className="btn btn-primary">กลับสู่หน้าแรก</Link>
-                  </div>
-                }
-              />
-            </Routes>
-          </main>
+    <div className="container my-5">
+      <h1 className="visually-hidden">หน้าแรก IT L1Nz</h1>
+      <Carousel aria-label="สไลด์โฆษณาอุปกรณ์ IT">
+        <Carousel.Item>
+          <img
+            className="d-block w-100 carousel-img"
+            src="https://jarrods.tech/wp-content/uploads/2023/12/asus-rog-zephyrus-m16-2023-gaming-laptop-1024x576.jpg"
+            alt="ภาพโฆษณาอุปกรณ์ IT ที่ทันสมัย"
+            loading="lazy"
+          />
+          <Carousel.Caption>
+            <h3>อุปกรณ์ IT ที่ทันสมัย</h3>
+            <p>ค้นหาอุปกรณ์ที่ตอบโจทย์ทุกความต้องการ</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100 carousel-img"
+            src="https://cdn1.productnation.co/stg/sites/6/60bde00005e7a.jpeg"
+            alt="ภาพโฆษณาเทคโนโลยีเพื่ออนาคต"
+            loading="lazy"
+          />
+          <Carousel.Caption>
+            <h3>เทคโนโลยีเพื่ออนาคต</h3>
+            <p>สำรวจโลกแห่งนวัตกรรมไปกับเรา</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100 carousel-img"
+            src="https://www.ktc.co.th/pub/media/Article/02/gaming-gear1200x630.webp"
+            alt="ภาพโฆษณารายละเอียดอุปกรณ์ IT"
+            loading="lazy"
+          />
+          <Carousel.Caption>
+            <h3>รายละเอียดอุปกรณ์ครบ</h3>
+            <p>เลือกสิ่งที่ดีที่สุดสำหรับคุณ</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
 
- <main className="flex-grow-1">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/devices" element={<DeviceList devices={devices} />} />
-              <Route path="/devices/:id" element={<DeviceDetail />} />
-              <Route path="/login" element={<Login />} />
-              <Route
-                path="/admin"
-                element={
-                  localStorage.getItem('role') === 'admin' ? <AdminForm /> : <Login />
-                }
-              />
-              <Route
-                path="/profile"
-                element={
-                  localStorage.getItem('token') ? <Profile /> : <Login />
-                }
-              />
-              <Route
-                path="/favorites"
-                element={
-                  localStorage.getItem('token') ? <Favorites /> : <Login />
-                }
-              />
-              <Route path="/register" element={<Navigate to="/login" state={{ activeTab: 'register' }} />} />
-              <Route
-                path="*"
-                element={
-                  <div className="container my-5 text-center">
-                    <h2 className="text-danger fs-4">404 Not Found</h2>
-                    <p className="fs-5">ขออภัย ไม่พบหน้าที่คุณต้องการ</p>
-                    <Link to="/" className="btn btn-primary">กลับสู่หน้าแรก</Link>
-                  </div>
-                }
-              />
-            </Routes>
-          </main>
-          <Footer />
+      <div className="jumbotron bg-light p-5 rounded shadow-lg my-5 text-center">
+        <h2 className="display-4 text-primary fw-bold">ยินดีต้อนรับสู่ IT L1Nz</h2>
+        <p className="lead text-muted mt-3">
+          ค้นหาและจัดการข้อมูลอุปกรณ์ IT ที่คุณชื่นชอบได้ที่นี่
+        </p>
+        <hr className="my-4" />
+        <p>เริ่มต้นด้วยการสำรวจอุปกรณ์หรือเข้าร่วมกับเรา</p>
+        <div className="d-flex justify-content-center gap-3">
+          <Link
+            className="btn btn-primary btn-lg"
+            to="/devices"
+            aria-label="ดูรายการอุปกรณ์"
+          >
+            ดูอุปกรณ์
+          </Link>
+          {!isLoggedIn && (
+            <Link
+              className="btn btn-outline-primary btn-lg"
+              to="/login"
+              aria-label="ล็อกอินเข้าสู่ระบบ"
+            >
+              ล็อกอิน
+            </Link>
+          )}
         </div>
-        <ToastContainer position="top-right" autoClose={3000} />
-      </Router>
-    </ThemeProvider>
+      </div>
+    </div>
   );
 }
 
-export default App;
+export default Home;
