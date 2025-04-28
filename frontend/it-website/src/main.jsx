@@ -14,6 +14,7 @@ import './Home.css';
 import './Login.css';
 import './Profile.css';
 import './global.css';
+import './ThemeContext';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
