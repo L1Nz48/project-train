@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import { ThemeContext } from './ThemeContext';
+
 
 function Navbar() {
   const { theme, toggleTheme } = useContext(ThemeContext);
