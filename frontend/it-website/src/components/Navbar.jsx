@@ -59,7 +59,7 @@ function Navbar() {
   };
 
   return (
-    <nav className={`navbar navbar-expand-lg shadow-sm ${isScrolled ? 'navbar-scrolled' : ''}`}>
+    <nav className={`navbar navbar-expand-lg ${isScrolled ? 'small' : ''}`}>
       <div className="container-fluid">
         <Link className="navbar-brand fw-bold" to="/">IT L1Nz</Link>
         <button 
@@ -119,7 +119,7 @@ function Navbar() {
                 )}
                 <li className="nav-item">
                   <button 
-                    className="btn btn-outline-danger btn-sm ms-2" 
+                    className="btn btn-link text-warning no-underline ms-2" 
                     onClick={handleLogout}
                   >
                     <i className="bi bi-box-arrow-right"></i> ออก
@@ -129,7 +129,7 @@ function Navbar() {
             )}
             <li className="nav-item">
               <button 
-                className="btn btn-outline-light btn-sm ms-2" 
+                className="btn btn-link text-light no-underline ms-2" 
                 onClick={toggleTheme}
                 aria-label={theme === 'light' ? 'เปลี่ยนเป็นโหมดมืด' : 'เปลี่ยนเป็นโหมดสว่าง'}
               >
