@@ -59,7 +59,7 @@ function Navbar() {
   };
 
   return (
-    <nav className={`navbar navbar-expand-lg navbar-dark bg-dark shadow-sm ${isScrolled ? 'navbar-scrolled' : ''}`}>
+    <nav className={`navbar navbar-expand-lg shadow-sm ${isScrolled ? 'navbar-scrolled' : ''}`}>
       <div className="container-fluid">
         <Link className="navbar-brand fw-bold" to="/">IT L1Nz</Link>
         <button 

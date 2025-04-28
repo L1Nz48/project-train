@@ -1,11 +1,12 @@
 .navbar {
   transition: all 0.3s ease;
   padding: 1.5rem 1rem;
+  border: none !important; /* Remove any border */
 }
 
 .navbar.navbar-expand-lg.navbar-scrolled {
   padding: 0.5rem 1rem !important;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2) !important;
 }
 
 .navbar.navbar-expand-lg.navbar-scrolled .navbar-brand {
@@ -33,6 +34,10 @@
 [data-bs-theme="dark"] .btn-outline-danger {
   border-color: #dc3545 !important;
   color: #dc3545 !important;
+}
+
+[data-bs-theme="dark"] .text-light {
+  color: #e9ecef !important;
 }
 
 @media (max-width: 576px) {
