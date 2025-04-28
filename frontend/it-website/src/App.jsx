@@ -4,7 +4,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import './global.css';
 import { ThemeProvider } from './ThemeContext';
 import Navbar from './components/Navbar';
 import DeviceList from './components/DeviceList';
