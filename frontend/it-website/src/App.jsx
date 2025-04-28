@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import './global.css';
+import { ThemeProvider } from './ThemeContext';
 import Navbar from './components/Navbar';
 import DeviceList from './components/DeviceList';
 import AdminForm from './components/AdminForm';
@@ -14,6 +16,7 @@ import DeviceDetail from './components/DeviceDetail';
 import Favorites from './components/Favorites';
 import Footer from './components/Footer';
 import Loading from './components/Loading';
+import { Link } from 'react-router-dom';
 
 function App() {
   const [devices, setDevices] = useState([]);
@@ -27,7 +30,7 @@ function App() {
     const fetchDevices = async () => {
       try {
         const response = await fetch(`${API_URL}/devices`, {
-          signal: AbortSignal.timeout(30000), // Timeout 30 วินาที
+          signal: AbortSignal.timeout(30000),
         });
         if (!response.ok) {
           throw new Error(`Failed to fetch devices: ${response.status} ${response.statusText}`);
@@ -65,49 +68,52 @@ function App() {
   }
 
   return (
-    <Router>
-      <div className="d-flex flex-column min-vh-100">
-        <Navbar />
-        <main className="flex-grow-1">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/devices" element={<DeviceList devices={devices} />} />
-            <Route path="/devices/:id" element={<DeviceDetail />} />
-            <Route path="/login" element={<Login />} />
-            <Route
-              path="/admin"
-              element={
-                localStorage.getItem('role') === 'admin' ? <AdminForm /> : <Login />
-              }
-            />
-            <Route
-              path="/profile"
-              element={
-                localStorage.getItem('token') ? <Profile /> : <Login />
-              }
-            />
-            <Route
-              path="/favorites"
-              element={
-                localStorage.getItem('token') ? <Favorites /> : <Login />
-              }
-            />
-            <Route
-              path="*"
-              element={
-                <div className="container my-5 text-center">
-                  <h2 className="text-danger fs-4">404 Not Found</h2>
-                  <p className="fs-5">ขออภัย ไม่พบหน้าที่คุณต้องการ</p>
-                  <Link to="/" className="btn btn-primary">กลับสู่หน้าแรก</Link>
-                </div>
-              }
-            />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-      <ToastContainer />
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <div className="d-flex flex-column min-vh-100">
+          <Navbar />
+          <main className="flex-grow-1">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/devices" element={<DeviceList devices={devices} />} />
+              <Route path="/devices/:id" element={<DeviceDetail />} />
+              <Route path="/login" element={<Login />} />
+              <Route
+                path="/admin"
+                element={
+                  localStorage.getItem('role') === 'admin' ? <AdminForm /> : <Login />
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  localStorage.getItem('token') ? <Profile /> : <Login />
+                }
+              />
+              <Route
+                path="/favorites"
+                element={
+                  localStorage.getItem('token') ? <Favorites /> : <Login />
+                }
+              />
+              <Route path="/register" element={<Navigate to="/login" state={{ activeTab: 'register' }} />} />
+              <Route
+                path="*"
+                element={
+                  <div className="container my-5 text-center">
+                    <h2 className="text-danger fs-4">404 Not Found</h2>
+                    <p className="fs-5">ขออภัย ไม่พบหน้าที่คุณต้องการ</p>
+                    <Link to="/" className="btn btn-primary">กลับสู่หน้าแรก</Link>
+                  </div>
+                }
+              />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+        <ToastContainer position="top-right" autoClose={3000} />
+      </Router>
+    </ThemeProvider>
   );
 }
 
