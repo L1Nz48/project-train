@@ -104,7 +104,7 @@ a:focus {
 
 /* รองรับธีมมืด */
 body.dark .navbar.navbar-expand-lg {
-  background: linear-gradient(135deg, #1a1e23, #2c3035);
+  background: linear-gradient(135deg, #238df8, #2c3035);
 }
 
 body.dark .navbar.navbar-expand-lg.small {
