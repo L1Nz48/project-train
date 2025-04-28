@@ -108,7 +108,7 @@ body.dark .navbar.navbar-expand-lg {
 }
 
 body.dark .navbar.navbar-expand-lg.small {
-  background: linear-gradient(135deg, #0f1216, #1a1e23);
+  background: linear-gradient(135deg, #006eff, #1a1e23);
 }
 
 body.dark .navbar.navbar-expand-lg .nav-link {
