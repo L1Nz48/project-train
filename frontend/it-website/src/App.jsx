@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import './global.css';
 import { ThemeProvider } from './ThemeContext';
 import Navbar from './components/Navbar';
 import DeviceList from './components/DeviceList';
@@ -98,7 +99,7 @@ function App() {
               <Route path="/register" element={<Navigate to="/login" state={{ activeTab: 'register' }} />} />
               <Route
                 path="*"
-                элемент={
+                element={
                   <div className="container my-5 text-center">
                     <h2 className="text-danger fs-4">404 Not Found</h2>
                     <p className="fs-5">ขออภัย ไม่พบหน้าที่คุณต้องการ</p>
