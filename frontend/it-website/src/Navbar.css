@@ -85,3 +85,65 @@
 .btn-link.no-underline {
   text-decoration: none !important;
 }
+
+/* ลบ outline เมื่อ focus หรือ click */
+button:focus,
+.btn:focus,
+.btn-link:focus,
+input:focus,
+a:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* ป้องกันการเปลี่ยนสีเมื่อคลิก */
+.btn-link:active,
+.btn-link:hover {
+  text-decoration: none !important;
+}
+
+/* รองรับธีมมืด */
+body.dark .navbar.navbar-expand-lg {
+  background: linear-gradient(135deg, #1a1e23, #2c3035);
+}
+
+body.dark .navbar.navbar-expand-lg.small {
+  background: linear-gradient(135deg, #0f1216, #1a1e23);
+}
+
+body.dark .navbar.navbar-expand-lg .nav-link {
+  color: #d0d0d0; /* สีเทาอ่อนในธีมมืด */
+}
+
+body.dark .navbar.navbar-expand-lg .nav-link:hover {
+  color: #40c4ff; /* สีฟ้าอ่อนในธีมมืด */
+}
+
+body.dark .navbar.navbar-expand-lg .navbar-brand {
+  color: #ffffff;
+}
+
+body.dark .navbar.navbar-expand-lg .navbar-brand:hover {
+  color: #ffd740;
+}
+
+body.dark .navbar.navbar-expand-lg.small .nav-link {
+  color: #e0e0e0;
+}
+
+body.dark .navbar.navbar-expand-lg.small .nav-link:hover {
+  color: #00e676;
+}
+
+body.dark .btn-link.text-warning {
+  color: #ffca2c;
+}
+
+body.dark .btn-link.text-light {
+  color: #e0e0e0;
+}
+
+body.dark .btn-link:hover,
+body.dark .btn-link:active {
+  color: #00c4ff;
+}
