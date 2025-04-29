@@ -63,7 +63,7 @@ function Navbar() {
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           <img 
-            src="/logo.png" 
+            src="/L1Nz.webp" 
             alt="IT L1Nz Logo" 
             className="navbar-logo"
           />
