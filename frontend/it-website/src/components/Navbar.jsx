@@ -63,7 +63,7 @@ function Navbar() {
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
           <img 
-            src="file:///C:/Users/L1Nz/Downloads/DALL%C2%B7E%202025-03-27%2013.26.28%20-%20A%20minimalistic%20logo%20for%20a%20computer%20store%20named%20'L1Nz%20Tech'.%20The%20design%20features%20clean,%20modern%20typography%20with%20a%20tech-inspired%20feel.%20The%20color%20scheme%20i.webp" 
+            src="/logo.png" 
             alt="IT L1Nz Logo" 
             className="navbar-logo"
           />
