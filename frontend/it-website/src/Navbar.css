@@ -31,13 +31,23 @@
 
 /* ปรับ navbar-brand */
 .navbar.navbar-expand-lg .navbar-brand {
-  color: #ffffff; /* สีขาวสำหรับโลโก้ */
-  font-weight: 700;
-  transition: color 0.3s ease;
+  padding: 0; /* ลบ padding เพื่อให้โลโก้ไม่เบี้ยว */
+  display: flex;
+  align-items: center;
+  transition: transform 0.3s ease; /* เพิ่ม animation */
 }
 
-.navbar.navbar-expand-lg .navbar-brand:hover {
-  color: #0400ff; /* สีทองเมื่อ hover */
+/* สไตล์โลโก้ */
+.navbar.navbar-expand-lg .navbar-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* ทำให้เป็นวงกลม */
+  object-fit: cover; /* ให้รูปเต็มกรอบ */
+  transition: transform 0.3s ease;
+}
+
+.navbar.navbar-expand-lg .navbar-brand:hover .navbar-logo {
+  transform: scale(1.1); /* ขยายเล็กน้อยเมื่อ hover */
 }
 
 /* ปรับปุ่มใน Navbar */
@@ -47,7 +57,7 @@
 }
 
 .navbar.navbar-expand-lg .btn-link:hover {
-  color: #ff2ce6; /* สีเหลืองเมื่อ hover */
+  color: #ff2ce6; /* สีชมพูเมื่อ hover */
   transform: translateY(-2px);
 }
 
@@ -62,15 +72,16 @@
   color: #00e676; /* สีเขียวสดเมื่อ hover */
 }
 
-.navbar.navbar-expand-lg.small .navbar-brand {
-  font-size: 1rem;
-  color: #f0f0f0;
+.navbar.navbar-expand-lg.small .navbar-logo {
+  width: 30px;
+  height: 30px;
 }
 
-.navbar.navbar-expand-lg.small .navbar-brand:hover {
-  color: #002fff; /* สีเหลืองสดเมื่อ hover */
+.navbar.navbar-expand-lg.small .navbar-brand:hover .navbar-logo {
+  transform: scale(1.1);
 }
 
+/* ปรับปุ่มเมื่อ Navbar เล็กลง */
 .navbar.navbar-expand-lg.small .btn-link {
   padding: 0.25rem 0.5rem;
   font-size: 0.9rem;
@@ -104,11 +115,11 @@ a:focus {
 
 /* รองรับธีมมืด */
 body.dark .navbar.navbar-expand-lg {
-  background: linear-gradient(135deg, #238df8, #2c3035);
+  background: linear-gradient(135deg, #1a1e23, #2c3035);
 }
 
 body.dark .navbar.navbar-expand-lg.small {
-  background: linear-gradient(135deg, #006eff, #1a1e23);
+  background: linear-gradient(135deg, #0f1216, #1a1e23);
 }
 
 body.dark .navbar.navbar-expand-lg .nav-link {
@@ -119,12 +130,8 @@ body.dark .navbar.navbar-expand-lg .nav-link:hover {
   color: #40c4ff; /* สีฟ้าอ่อนในธีมมืด */
 }
 
-body.dark .navbar.navbar-expand-lg .navbar-brand {
-  color: #ffffff;
-}
-
-body.dark .navbar.navbar-expand-lg .navbar-brand:hover {
-  color: #ffd740;
+body.dark .navbar.navbar-expand-lg .navbar-brand:hover .navbar-logo {
+  transform: scale(1.1);
 }
 
 body.dark .navbar.navbar-expand-lg.small .nav-link {
@@ -147,6 +154,7 @@ body.dark .btn-link:hover,
 body.dark .btn-link:active {
   color: #00c4ff;
 }
+
 /* Responsive adjustments */
 @media (max-width: 991px) {
   .navbar.navbar-expand-lg {
@@ -157,6 +165,16 @@ body.dark .btn-link:active {
   .navbar.navbar-expand-lg.small {
     padding: 0.5rem 1rem;
     height: 50px;
+  }
+
+  .navbar.navbar-expand-lg .navbar-logo {
+    width: 35px;
+    height: 35px;
+  }
+
+  .navbar.navbar-expand-lg.small .navbar-logo {
+    width: 28px;
+    height: 28px;
   }
 
   .navbar-collapse {
