@@ -102,7 +102,7 @@ function Navbar() {
               </li>
             )}
           </ul>
-          <ul className="navbar-nav ms-auto">
+          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             {role && (
               <>
                 <li className="nav-item d-flex align-items-center">

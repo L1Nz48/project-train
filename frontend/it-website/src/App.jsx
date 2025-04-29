@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js'; // เพิ่มเพื่อให้ collapse ทำงาน
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './global.css';
 import { ThemeProvider } from './ThemeContext';

@@ -147,3 +147,38 @@ body.dark .btn-link:hover,
 body.dark .btn-link:active {
   color: #00c4ff;
 }
+/* Responsive adjustments */
+@media (max-width: 991px) {
+  .navbar.navbar-expand-lg {
+    padding: 0.75rem 1rem;
+    height: 60px;
+  }
+
+  .navbar.navbar-expand-lg.small {
+    padding: 0.5rem 1rem;
+    height: 50px;
+  }
+
+  .navbar-collapse {
+    background: linear-gradient(135deg, #3f91e3, #495057); /* Match Navbar background */
+    padding: 1rem;
+    margin-top: 0.5rem;
+    border-radius: 0 0 8px 8px;
+  }
+
+  body.dark .navbar-collapse {
+    background: linear-gradient(135deg, #1a1e23, #2c3035);
+  }
+
+  .navbar-nav {
+    gap: 0.5rem;
+  }
+
+  .nav-item {
+    text-align: center;
+  }
+
+  .navbar-nav.ms-auto {
+    margin-top: 1rem;
+  }
+}
