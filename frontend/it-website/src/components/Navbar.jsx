@@ -61,7 +61,7 @@ function Navbar() {
   return (
     <nav className={`navbar navbar-expand-lg ${isScrolled ? 'small' : ''}`}>
       <div className="container-fluid">
-        <Link className="navbar-brand fw-bold" to="/"><img src="./L1Nz.webp" alt=""/></Link>
+        <Link className="navbar-brand fw-bold" to="/"><img src="./photo/L1Nz.webp" alt=""/></Link>
         <button 
           className="navbar-toggler" 
           type="button" 
